@@ -8,26 +8,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <nav class="nav">
-        <div class="logo">Portfolio.</div>
-        <ul class="nav-links">
-          <li><a href="#home">Головна</a></li>
-          <li><a href="#about">Про мене</a></li>
-          <li><a href="#services">Послуги</a></li>
-          <li><a href="#portfolio">Портфоліо</a></li>
-          <li><a href="#testimonials">Відгуки</a></li>
-          <li><a href="#contact">Контакти</a></li>
-        </ul>
-       <div class="burger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </nav>
-    </div>
-  </header>
+<header class="header">
+  <div class="container">
+    <nav class="nav">
+      <div class="logo">Portfolio.</div>
+      <ul class="nav-links">
+        <li><a href="#home">Головна</a></li>
+        <li><a href="#about">Про мене</a></li>
+        <li><a href="#portfolio">Портфоліо</a></li>
+        <li><a href="#testimonials">Відгуки</a></li>
+        <li><a href="#contact">Контакти</a></li>
+      </ul>
+      <div class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
+</header>
 
   <section id="home" class="hero">
     <div class="container">
@@ -37,10 +36,12 @@
         <p class="hero-text">Я не просто оформлюю профіль — я розкриваю історію бренду. Допомагаю бізнесу
              звучати впевнено, викликати довіру та рости у свідомості аудиторії.
         </p>
-        <div class="hero-buttons">
-          <a href="#portfolio" class="btn-primary">Мої проєкти</a>
-          <a href="#contact" class="btn-secondary">Зв'язатися</a>
-        </div>
+          <!-- Для кнопки "Мої проекти" -->
+<a href="#portfolio" class="hero-btn btn-projects">Мої проекти</a>
+
+<!-- Для кнопки "Зв'язатися" -->
+<a href="#contact" class="hero-btn btn-contact">Зв'язатися</a>
+        
       </div>
       <div class="hero-image">
         <img src="image/IMG_20250729_154213.jpg" alt="Діана Блащак" class="hero-photo">
@@ -125,163 +126,184 @@
 
 
 
-    <!-- Портфоліо проектів -->
-  <section id="portfolio" class="portfolio">
-    <div class="container">
-      <div class="section-header">
-        <h2>Портфоліо</h2>
-        <p>Останні успішні проєкти</p>
-      </div>
-      <div class="portfolio-grid">
-        <!-- Проект 1 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-             <img src="img/Портфоліо_-_Діани_Блащак-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Рекламне агенство</h3>
-            <p>Ціль присутності компанії в соціальних мережах — представлення її послуг та поширення корисної інформації для підприємців.</p>
-            <p>Цей проєкт реалізовано у співпраці з дизайнером та спеціалістом з РРС.</p>
-            <p>Моєю зоною відповідальності: розробка стратегії контент-плану з акцентом на корисний контент для підприємців, написання текстів, формулювання технічних завдань для створення макетів, а також публікація контенту.</p>
-            <div class="portfolio-stats">
-              <div class="stat">+240% охоплення</div>
-              <div class="stat">+180% продажів</div>
+  <!-- Портфоліо проектів -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>Портфоліо</h2>
+                <p>Останні успішні проєкти</p>
             </div>
-          </div>
-        </div>
-        
-        <!-- Проект 2 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-            <img src="img/Портфоліо_-_Діани_Блащак__1_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Школа Інтернет-Маркетингу</h3>
-            <p>Ціль цієї ніші в соціальних мережах — просування курсів з інтернет-маркетингу та донесення ідеї, що навчитися може кожен, а маркетинг — це сучасна, перспективна професія.</p>
-            <p>Стратегія контенту включала не лише заклики "пройди курс", а й розкриття тем маркетингу, ознайомлення зі спеціальністю, демонстрацію кейсів та відгуків студентів.</p>
-            <p>Над цим проєктом також працювала команда разом із дизайнером. Моїми завданнями були розробка контент-плану, написання постів і передача технічних завдань дизайнеру для створення візуалів.</p>
-            <div class="portfolio-stats">
-              <div class="stat">+440% охоплення</div>
-              <div class="stat">+280% продажів</div>
+            <div class="portfolio-grid">
+                <!-- Проект 1 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                         <img src="img/Портфоліо_-_Діани_Блащак-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Рекламне агенство</h3>
+                        <div class="description-container">
+                            <p>Ціль присутності компанії в соціальних мережах — представлення її послуг та поширення корисної інформації для підприємців.</p>
+                            <p>Цей проєкт реалізовано у співпраці з дизайнером та спеціалістом з РРС.</p>
+                            <p>Моєю зоною відповідальності: розробка стратегії контент-плану з акцентом на корисний контент для підприємців, написання текстів, формулювання технічних завдань для створення макетів, а також публікація контенту.</p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+240% охоплення</div>
+                            <div class="stat">+180% продажів</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 2 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                        <img src="img/Портфоліо_-_Діани_Блащак__1_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Школа Інтернет-Маркетингу</h3>
+                        <div class="description-container">
+                            <p>Ціль цієї ніші в соціальних мережах — просування курсів з інтернет-маркетингу та донесення ідеї, що навчитися може кожен, а маркетинг — це сучасна, перспективна професія.</p>
+                            <p>Стратегія контенту включала не лише заклики "пройди курс", а й розкриття тем маркетингу, ознайомлення зі спеціальністю, демонстрацію кейсів та відгуків студентів.</p>
+                            <p>Над цим проєктом також працювала команда разом із дизайнером. Моїми завданнями були розробка контент-плану, написання постів і передача технічних завдань дизайнеру для створення візуалів.</p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+440% охоплення</div>
+                            <div class="stat">+280% продажів</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 3 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                        <img src="img/Портфоліо_-_Діани_Блащак__2_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Кавове обладнання</h3>
+                        <div class="description-container">
+                            <p>Ціль проєкту: використання соціальних мереж як одного з майданчиків дотику з брендом, підвищення впізнаваності та залучення нових клієнтів.</p>
+                            <p>Контент-стратегія: акцент на ознайомлення з асортиментом кавового обладнання, демонстрація експертності бренду як надійного постачальника кавових машин і приладів для офісів та бізнесів.</p>
+                            <p>Мої задачі:
+                                <ul>
+                                    <li>Побудова контент-стратегії</li>
+                                    <li>Розробка візуальної концепції</li>
+                                    <li>Написання постів</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+240% охоплення</div>
+                            <div class="stat">+180% продажів</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 4 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                        <img src="img/Портфоліо_-_Діани_Блащак__6_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Розробка Екслібрису</h3>
+                        <div class="description-container">
+                            <p>Завдання: Показати продукт не лише як печатку для книг, а як спосіб самовираження.</p>
+                            <p>Підхід: Я створюю емоційний та цікавий контент, який залучає аудиторію і викликає асоціації. Уникаю шаблонів — кожен допис має сенс і настрій.</p>
+                            <p>Працюю над проєктом спільно з дизайнером — від ідеї до візуальної реалізації.</p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+150% залученість</div>
+                            <div class="stat">+3000 нових підписників</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 5 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                     <img src="img/Портфоліо_-_Діани_Блащак__3_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Подологічний центр</h3>
+                        <div class="description-container">
+                            <p>Клієнтка: власниця подологічного центру</p>
+                            <p>Запит: повне ведення профілю з нуля</p>
+                            <p>Мої задачі:
+                                <ul>
+                                    <li>Побудова загальної стратегії та контент-стратегії</li>
+                                    <li>Розробка візуального стилю відповідно до вже наявного логотипу (синій та білий кольори, підбір шрифтів)</li>
+                                    <li>Формування змісту не лише навколо послуг і кейсів, а й навколо ідеї подологічної культури, догляду незалежно від віку та любові до себе</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+240% охоплення</div>
+                            <div class="stat">+180% продажів</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 6 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                        <img src="img/Портфоліо_-_Діани_Блащак__4_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Стоматологія</h3>
+                        <div class="description-container">
+                            <p>Створення бізнес-сторінки у Facebook під ключ: оформлення та подальше ведення профілю.</p>
+                            <p>Що було зроблено:
+                                <ul>
+                                    <li>Створено бізнес-сторінку з нуля</li>
+                                    <li>Розроблено обкладинку</li>
+                                    <li>Заповнено інформацію про компанію</li>
+                                    <li>Ведення профілю: 3 пости на тиждень + 4–5 сторіс до кожного</li>
+                                </ul>
+                            </p>
+                            <p>Результати: Перші результати з'явилися після якісного наповнення сторінки.</p>
+                            <p>Однак, стратегія просування лише у Facebook виявилася недостатньо ефективною. Клієнтка не була готова розширюватися в інші соцмережі, що обмежило можливості просування та призвело до недовгої співпраці.</p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+240% охоплення</div>
+                            <div class="stat">+180% продажів</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проект 7 -->
+                <div class="portfolio-item glass-card">
+                    <div class="portfolio-image">
+                        <img src="img/Портфоліо_-_Діани_Блащак__5_-removebg-preview.png" alt="Діана Блащак" class="project-image">
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Автосервіс</h3>
+                        <div class="description-container">
+                            <p>Продовження ведення сторінки з дотриманням уже сформованого стилю та оформленням highlights.</p>
+                            <p>Умови співпраці за запитом клієнта:
+                                <ul>
+                                    <li>Один пост на тиждень</li>
+                                    <li>Сторіс тричі на тиждень (по 2–4 сторіс у день)</li>
+                                    <li>Дотримання візуального стилю, який був напрацьований раніше</li>
+                                    <li>Оформлення highlights</li>
+                                </ul>
+                            </p>
+                            <p>Що було зроблено: Контент створювався відповідно до стилю та наданих матеріалів.</p>
+                            <p>Основним фокусом було додати більше "живого" контенту, адже раніше стрічка складалася переважно з строкових зображень.</p>
+                        </div>
+                        <button class="read-more">Більше</button>
+                        <div class="portfolio-stats">
+                            <div class="stat">+240% охоплення</div>
+                            <div class="stat">+180% продажів</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        
-        <!-- Проект 3 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-            <img src="img/Портфоліо_-_Діани_Блащак__2_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Кавове обладнання</h3>
-            <p>Ціль проєкту: використання соціальних мереж як одного з майданчиків дотику з брендом, підвищення впізнаваності та залучення нових клієнтів.</p>
-            <p>Контент-стратегія: акцент на ознайомлення з асортиментом кавового обладнання, демонстрація експертності бренду як надійного постачальника кавових машин і приладів для офісів та бізнесів.</p>
-            <p>Мої задачі:
-              <ul>
-                <li>Побудова контент-стратегії</li>
-                <li>Розробка візуальної концепції</li>
-                <li>Написання постів</li>
-              </ul>
-            </p>
-            <div class="portfolio-stats">
-              <div class="stat">+240% охоплення</div>
-              <div class="stat">+180% продажів</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Проект 4 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-            <img src="img/Портфоліо_-_Діани_Блащак__6_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Розробка Екслібрису</h3>
-            <p>Завдання: Показати продукт не лише як печатку для книг, а як спосіб самовираження.</p>
-            <p>Підхід: Я створюю емоційний та цікавий контент, який залучає аудиторію і викликає асоціації. Уникаю шаблонів — кожен допис має сенс і настрій.</p>
-            <p>Працюю над проєктом спільно з дизайнером — від ідеї до візуальної реалізації.</p>
-            <div class="portfolio-stats">
-              <div class="stat">+150% залученість</div>
-              <div class="stat">+3000 нових підписників</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Проект 5 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-           <img src="img/Портфоліо_-_Діани_Блащак__3_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Подологічний центр</h3>
-            <p>Клієнтка: власниця подологічного центру</p>
-            <p>Запит: повне ведення профілю з нуля</p>
-            <p>Мої задачі:
-              <ul>
-                <li>Побудова загальної стратегії та контент-стратегії</li>
-                <li>Розробка візуального стилю відповідно до вже наявного логотипу (синій та білий кольори, підбір шрифтів)</li>
-                <li>Формування змісту не лише навколо послуг і кейсів, а й навколо ідеї подологічної культури, догляду незалежно від віку та любові до себе</li>
-              </ul>
-            </p>
-            <div class="portfolio-stats">
-              <div class="stat">+240% охоплення</div>
-              <div class="stat">+180% продажів</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Проект 6 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-            <img src="img/Портфоліо_-_Діани_Блащак__4_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Стоматологія</h3>
-            <p>Створення бізнес-сторінки у Facebook під ключ: оформлення та подальше ведення профілю.</p>
-            <p>Що було зроблено:
-              <ul>
-                <li>Створено бізнес-сторінку з нуля</li>
-                <li>Розроблено обкладинку</li>
-                <li>Заповнено інформацію про компанію</li>
-                <li>Ведення профілю: 3 пости на тиждень + 4–5 сторіс до кожного</li>
-              </ul>
-            </p>
-            <p>Результати: Перші результати з'явилися після якісного наповнення сторінки.</p>
-            <p>Однак, стратегія просування лише у Facebook виявилася недостатньо ефективною. Клієнтка не була готова розширюватися в інші соцмережі, що обмежило можливості просування та призвело до недовгої співпраці.</p>
-            <div class="portfolio-stats">
-              <div class="stat">+240% охоплення</div>
-              <div class="stat">+180% продажів</div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Проект 7 -->
-        <div class="portfolio-item glass-card">
-          <div class="portfolio-image">
-            <img src="img/Портфоліо_-_Діани_Блащак__5_-removebg-preview.png" alt="Діана Блащак" class="project-image">
-          </div>
-          <div class="portfolio-content">
-            <h3>Автосервіс</h3>
-            <p>Продовження ведення сторінки з дотриманням уже сформованого стилю та оформленням highlights.</p>
-            <p>Умови співпраці за запитом клієнта:
-              <ul>
-                <li>Один пост на тиждень</li>
-                <li>Сторіс тричі на тиждень (по 2–4 сторіс у день)</li>
-                <li>Дотримання візуального стилю, який був напрацьований раніше</li>
-                <li>Оформлення highlights</li>
-              </ul>
-            </p>
-            <p>Що було зроблено: Контент створювався відповідно до стилю та наданих матеріалів.</p>
-            <p>Основним фокусом було додати більше "живого" контенту, адже раніше стрічка складалася переважно з строкових зображень.</p>
-            <div class="portfolio-stats">
-              <div class="stat">+240% охоплення</div>
-              <div class="stat">+180% продажів</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
 
   <section class="vertical-carousel">
