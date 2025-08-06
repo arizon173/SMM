@@ -1,264 +1,296 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Кешування DOM-елементів
-  const DOM = {
-    burger: document.querySelector('.burger'),
-    navLinks: document.querySelector('.nav-links'),
-    header: document.querySelector('.header'),
-    carousel: document.querySelector('.carousel-container'),
-    modal: document.querySelector('.modal'),
-    modalImg: document.querySelector('.modal-img'),
-    closeBtn: document.querySelector('.close'),
-    portfolio: document.querySelector('.portfolio-grid')
-  };
+// ✅ ОПТИМІЗОВАНИЙ WebsiteController
+class WebsiteController {
+  constructor() {
+    this.state = {
+      isMenuOpen: false,
+      isAnimating: false,
+      lastScrollY: 0,
+      autoScrollInterval: null,
+      currentSlide: 0
+    };
 
-  // Стан меню (відкрите/закрите)
-  let isMenuOpen = false;
+    this.config = {
+      scrollThreshold: 5,
+      headerScrollThreshold: 50,
+      carouselInterval: 5000,
+      pauseDuration: 10000,
+      animationDuration: 600
+    };
 
-  // Функція для закриття меню
-  const closeMenu = () => {
-    DOM.burger.classList.remove('active');
-    DOM.navLinks.classList.remove('active');
-    document.body.style.overflow = '';
-    isMenuOpen = false;
-  };
-
-  // Функція для відкриття/закриття меню
-  const toggleMenu = () => {
-    isMenuOpen = !isMenuOpen;
-    DOM.burger.classList.toggle('active');
-    DOM.navLinks.classList.toggle('active');
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-  };
-
-  // Бургер-меню з делегуванням подій
-  if (DOM.burger && DOM.navLinks) {
-    DOM.burger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-
-    // Закриття меню при кліку на посилання
-    DOM.navLinks.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        closeMenu();
-      }
-    });
-
-    // Закриття меню при кліку поза меню
-    document.addEventListener('click', (e) => {
-      if (isMenuOpen && 
-          !DOM.navLinks.contains(e.target) && 
-          !DOM.burger.contains(e.target)) {
-        closeMenu();
-      }
-    });
-
-    // Закриття меню при натисканні Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isMenuOpen) {
-        closeMenu();
-      }
-    });
+    this.DOM = this.cacheElements();
+    this.init();
   }
 
-  // Ефект скролу для хедера з requestAnimationFrame
-  if (DOM.header) {
-    let lastScrollY = window.scrollY;
-    
-    const updateHeader = () => {
-      DOM.header.classList.toggle('scrolled', window.scrollY > 50);
+  cacheElements() {
+    const selectors = {
+      burger: '.burger',
+      navLinks: '.nav-links',
+      header: '.header',
+      carousel: '.carousel-container',
+      modal: '.modal',
+      modalImg: '.modal-img',
+      closeBtn: '.close',
+      portfolio: '.portfolio-grid'
     };
 
-    const onScroll = () => {
-      if (Math.abs(window.scrollY - lastScrollY) > 5) {
-        requestAnimationFrame(updateHeader);
-        lastScrollY = window.scrollY;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateHeader(); // Ініціалізація стану
-  }
-
-  // Кнопка "Більше" для портфоліо з делегуванням
-  if (DOM.portfolio) {
-    DOM.portfolio.addEventListener('click', (e) => {
-      const button = e.target.closest('.read-more');
-      if (!button) return;
-      
-      const portfolioItem = button.closest('.portfolio-item');
-      portfolioItem.classList.toggle('expanded');
-      button.textContent = portfolioItem.classList.contains('expanded') 
-        ? 'Згорнути' 
-        : 'Більше';
-    });
-  }
-
-  // Вертикальна карусель з оптимізацією
-  if (DOM.carousel) {
-    const slides = document.querySelectorAll('.carousel-item');
-    let current = 0;
-    let isAnimating = false;
-    let autoScrollInterval;
-
-    const updateSlides = () => {
-      if (isAnimating || !slides.length) return;
-      isAnimating = true;
-
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active', 'prev', 'next');
-        if (i === current) {
-          slide.classList.add('active');
-          gsap.to(slide, { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 0.6,
-            ease: 'power2.out'
-          });
-        } else if (i === (current - 1 + slides.length) % slides.length) {
-          slide.classList.add('prev');
-          gsap.to(slide, { 
-            opacity: 0.5, 
-            scale: 0.9, 
-            duration: 0.6,
-            ease: 'power2.out'
-          });
-        } else if (i === (current + 1) % slides.length) {
-          slide.classList.add('next');
-          gsap.to(slide, { 
-            opacity: 0.5, 
-            scale: 0.9, 
-            duration: 0.6,
-            ease: 'power2.out'
-          });
-        } else {
-          gsap.to(slide, { 
-            opacity: 0, 
-            scale: 0.8, 
-            duration: 0.6,
-            ease: 'power2.out'
-          });
-        }
-      });
-
-      setTimeout(() => isAnimating = false, 600);
-    };
-
-    const nextSlide = () => {
-      current = (current + 1) % slides.length;
-      updateSlides();
-    };
-
-    const prevSlide = () => {
-      current = (current - 1 + slides.length) % slides.length;
-      updateSlides();
-    };
-
-    // Автоскрол з паузою при взаємодії
-    const startAutoScroll = () => {
-      autoScrollInterval = setInterval(nextSlide, 5000);
-    };
-
-    const pauseAutoScroll = () => {
-      clearInterval(autoScrollInterval);
-      setTimeout(startAutoScroll, 10000); // Повернення автоскролу через 10с
-    };
-
-    DOM.carousel.addEventListener('mouseenter', pauseAutoScroll);
-    DOM.carousel.addEventListener('touchstart', pauseAutoScroll);
-    
-    startAutoScroll();
-    updateSlides();
-  }
-
-  // Модальне вікно для сертифікатів
-  if (DOM.modal && DOM.modalImg && DOM.closeBtn) {
-    const openModal = (imgSrc) => {
-      DOM.modal.classList.remove('hidden');
-      DOM.modalImg.src = imgSrc;
-      document.body.style.overflow = 'hidden';
-    };
-
-    const closeModal = () => {
-      DOM.modal.classList.add('hidden');
-      document.body.style.overflow = '';
-    };
-
-    // Відкриття модалки
-    document.addEventListener('click', (e) => {
-      const img = e.target.closest('.certificate-image');
-      if (img) openModal(img.src);
-    });
-
-    // Закриття модалки
-    DOM.closeBtn.addEventListener('click', closeModal);
-    DOM.modal.addEventListener('click', (e) => {
-      if (e.target === DOM.modal) closeModal();
-    });
-
-    // Закриття при натисканні Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !DOM.modal.classList.contains('hidden')) {
-        closeModal();
-      }
-    });
-  }
-
-  // Плавний скрол з делегуванням
-  document.addEventListener('click', (e) => {
-    const anchor = e.target.closest('a[href^="#"]');
-    if (!anchor) return;
-    
-    const targetId = anchor.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
-    
-    if (targetElement) {
-      e.preventDefault();
-      
-      gsap.to(window, {
-        scrollTo: {
-          y: targetElement,
-          offsetY: 80
-        },
-        duration: 1,
-        ease: "power2.out"
-      });
-    }
-
-    // Закриття меню після кліку на посилання
-    if (isMenuOpen) {
-      closeMenu();
-    }
-  });
-
-  // Анімації при скролі з Intersection Observer
-  const animateOnScroll = () => {
-    const elements = document.querySelectorAll(
-      '.service-card, .portfolio-item, .about-content, .testimonial'
+    return Object.fromEntries(
+      Object.entries(selectors).map(([key, sel]) => [key, document.querySelector(sel)])
     );
-    
-    const observer = new IntersectionObserver((entries) => {
+  }
+
+  init() {
+    this.initBurgerMenu();
+    this.initHeaderScroll();
+    this.initPortfolio();
+    this.initCarousel();
+    this.initModal();
+    this.initSmoothScroll();
+    this.initScrollAnimations();
+    this.bindGlobalEvents();
+  }
+
+  // === BURGER MENU ===
+  initBurgerMenu() {
+    const { burger, navLinks } = this.DOM;
+    if (!burger || !navLinks) return;
+
+    burger.addEventListener('click', e => {
+      e.stopPropagation();
+      this.toggleMenu();
+    });
+
+    navLinks.addEventListener('click', e => {
+      if (e.target.tagName === 'A') this.closeMenu();
+    });
+  }
+
+  toggleMenu() {
+    this.state.isMenuOpen = !this.state.isMenuOpen;
+    const { burger, navLinks } = this.DOM;
+    burger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    document.body.style.overflow = this.state.isMenuOpen ? 'hidden' : '';
+  }
+
+  closeMenu() {
+    if (!this.state.isMenuOpen) return;
+    this.state.isMenuOpen = false;
+    this.toggleMenu();
+  }
+
+  // === HEADER ===
+  initHeaderScroll() {
+    if (!this.DOM.header) return;
+    this.state.lastScrollY = window.scrollY;
+    this.updateHeaderState();
+
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (Math.abs(current - this.state.lastScrollY) > this.config.scrollThreshold) {
+        requestAnimationFrame(() => {
+          this.updateHeaderState();
+          this.state.lastScrollY = current;
+        });
+      }
+    }, { passive: true });
+  }
+
+  updateHeaderState() {
+    this.DOM.header.classList.toggle('scrolled', window.scrollY > this.config.headerScrollThreshold);
+  }
+
+  // === PORTFOLIO ===
+  initPortfolio() {
+    const { portfolio } = this.DOM;
+    if (!portfolio) return;
+
+    portfolio.addEventListener('click', e => {
+      const btn = e.target.closest('.read-more');
+      if (!btn) return;
+      const item = btn.closest('.portfolio-item');
+      const expanded = item.classList.toggle('expanded');
+      btn.textContent = expanded ? 'Згорнути' : 'Більше';
+    });
+  }
+
+  // === CAROUSEL ===
+  initCarousel() {
+    const { carousel } = this.DOM;
+    if (!carousel) return;
+
+    this.slides = carousel.querySelectorAll('.carousel-item');
+    if (!this.slides.length) return;
+
+    carousel.addEventListener('mouseenter', this.pauseAutoScroll.bind(this));
+    carousel.addEventListener('mouseleave', this.resumeAutoScroll.bind(this));
+    carousel.addEventListener('touchstart', this.pauseAutoScroll.bind(this));
+
+    this.startAutoScroll();
+    this.updateSlides();
+  }
+
+  updateSlides() {
+    if (this.state.isAnimating) return;
+    this.state.isAnimating = true;
+
+    const total = this.slides.length;
+
+    this.slides.forEach((slide, i) => {
+      slide.classList.remove('active', 'prev', 'next');
+      const props = { duration: 0.6, ease: 'power2.out', opacity: 0, scale: 0.8 };
+
+      if (i === this.state.currentSlide) {
+        slide.classList.add('active');
+        Object.assign(props, { opacity: 1, scale: 1 });
+      } else if (i === (this.state.currentSlide - 1 + total) % total) {
+        slide.classList.add('prev');
+        Object.assign(props, { opacity: 0.5, scale: 0.9 });
+      } else if (i === (this.state.currentSlide + 1) % total) {
+        slide.classList.add('next');
+        Object.assign(props, { opacity: 0.5, scale: 0.9 });
+      }
+
+      gsap?.to(slide, props);
+    });
+
+    setTimeout(() => this.state.isAnimating = false, this.config.animationDuration);
+  }
+
+  nextSlide() {
+    this.state.currentSlide = (this.state.currentSlide + 1) % this.slides.length;
+    this.updateSlides();
+  }
+
+  startAutoScroll() {
+    this.clearAutoScroll();
+    this.state.autoScrollInterval = setInterval(() => this.nextSlide(), this.config.carouselInterval);
+  }
+
+  pauseAutoScroll() {
+    this.clearAutoScroll();
+    setTimeout(() => this.startAutoScroll(), this.config.pauseDuration);
+  }
+
+  resumeAutoScroll() {
+    this.startAutoScroll();
+  }
+
+  clearAutoScroll() {
+    clearInterval(this.state.autoScrollInterval);
+    this.state.autoScrollInterval = null;
+  }
+
+  // === MODAL ===
+  initModal() {
+    const { modal, modalImg, closeBtn } = this.DOM;
+    if (!modal || !modalImg || !closeBtn) return;
+
+    closeBtn.addEventListener('click', () => this.closeModal());
+    modal.addEventListener('click', e => e.target === modal && this.closeModal());
+    document.addEventListener('click', e => {
+      const img = e.target.closest('.certificate-image');
+      if (img) this.openModal(img.src);
+    });
+  }
+
+  openModal(src) {
+    this.DOM.modal.classList.remove('hidden');
+    this.DOM.modalImg.src = src;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    this.DOM.modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // === SMOOTH SCROLL ===
+  initSmoothScroll() {
+    document.addEventListener('click', e => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (!target) return;
+
+      e.preventDefault();
+
+      gsap?.to(window, {
+        scrollTo: { y: target, offsetY: 80 },
+        duration: 1,
+        ease: 'power2.out'
+      }) || target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      this.closeMenu();
+    });
+  }
+
+  // === LAZY SCROLL ANIMATIONS ===
+  initScrollAnimations() {
+    const animated = document.querySelectorAll('.service-card, .portfolio-item, .about-content, .testimonial');
+    if (!animated.length || !window.IntersectionObserver) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          gsap.to(entry.target, {
+          gsap?.to(entry.target, {
             opacity: 1,
             y: 0,
             duration: 0.7,
-            ease: "power2.out"
+            ease: 'power2.out'
+          }) || Object.assign(entry.target.style, {
+            opacity: 1,
+            transform: 'translateY(0)',
+            transition: 'opacity 0.7s ease-out, transform 0.7s ease-out'
           });
-          observer.unobserve(entry.target);
+
+          obs.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+    animated.forEach(el => {
+      gsap?.set(el, { opacity: 0, y: 30 });
+      observer.observe(el);
+    });
+  }
+
+  // === GLOBAL EVENTS ===
+  bindGlobalEvents() {
+    document.addEventListener('click', e => {
+      const { burger, navLinks } = this.DOM;
+      if (this.state.isMenuOpen && !navLinks?.contains(e.target) && !burger?.contains(e.target)) {
+        this.closeMenu();
+      }
     });
 
-    elements.forEach(element => {
-      gsap.set(element, { opacity: 0, y: 30 });
-      observer.observe(element);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (this.state.isMenuOpen) this.closeMenu();
+        if (!this.DOM.modal.classList.contains('hidden')) this.closeModal();
+      }
     });
-  };
 
-  animateOnScroll();
+    window.addEventListener('beforeunload', () => this.clearAutoScroll());
+  }
+
+  // === PUBLIC API ===
+  goToSlide(index) {
+    if (index >= 0 && index < this.slides.length) {
+      this.state.currentSlide = index;
+      this.updateSlides();
+    }
+  }
+
+  pauseCarousel() { this.clearAutoScroll(); }
+  resumeCarousel() { this.startAutoScroll(); }
+}
+
+// Ініціалізація
+window.addEventListener('DOMContentLoaded', () => {
+  window.websiteController = new WebsiteController();
 });
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = WebsiteController;
+}
