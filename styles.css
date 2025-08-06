@@ -1,4 +1,3 @@
-/* ===== ОПТИМІЗОВАНИЙ CSS ===== */
 :root {
   --primary: #d4a373;
   --primary-dark: #8b5e34;
@@ -17,7 +16,7 @@
   --blur-lg: blur(20px);
 }
 
-*, *::before, *::after {
+*, ::before, ::after {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   margin: 0;
@@ -34,10 +33,8 @@ body {
   font: 1.6rem/1.6 system-ui, -apple-system, sans-serif;
   color: var(--text-primary);
   background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark));
-  overflow-x: hidden;
   min-height: 100vh;
   position: relative;
-  isolation: isolate;
 }
 
 body::before {
@@ -66,7 +63,6 @@ a {
   padding: 0 2rem;
 }
 
-/* === КНОПКИ === */
 .btn, .social-btn {
   display: inline-flex;
   align-items: center;
@@ -130,7 +126,7 @@ a {
   font-size: 2rem;
 }
 
-.social-btn:hover {
+.social-btn:hover, .btn-secondary:hover {
   background: var(--primary);
   color: var(--text-secondary);
   transform: translateY(-2px);
@@ -162,7 +158,6 @@ a {
   opacity: 1;
 }
 
-/* === ЗАГОЛОВКИ СЕКЦІЙ === */
 .section-header {
   text-align: center;
   margin-bottom: 6rem;
@@ -184,7 +179,6 @@ a {
   margin: 0 auto;
 }
 
-/* === КАРТКИ === */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: var(--blur-md);
@@ -201,8 +195,6 @@ a {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
-/* === ШАПКА === */
-/* === ШАПКА === */
 .header {
   position: fixed;
   top: 1rem;
@@ -240,7 +232,6 @@ a {
 .logo {
   font: 700 2.4rem system-ui;
   color: var(--text-primary);
-  z-index: 1002;
 }
 
 .nav-links {
@@ -254,7 +245,6 @@ a {
 .nav-links a {
   font: 500 1.6rem system-ui;
   position: relative;
-  color: var(--text-primary);
   transition: var(--transition);
 }
 
@@ -313,14 +303,12 @@ a {
   transform: translateY(-50%) rotate(-45deg);
 }
 
-/* Вирішення проблеми з клікабельністю на закритому меню */
 @media (max-width: 768px) {
   .nav-links {
     position: absolute;
     top: calc(100% + 1rem);
     right: 0;
     width: 220px;
-    max-width: none;
     background: rgba(30, 30, 32, 0.98);
     backdrop-filter: var(--blur-lg);
     border-radius: 12px;
@@ -338,13 +326,13 @@ a {
     transition: 
       opacity 0.25s ease,
       transform 0.25s ease;
-    pointer-events: none; /* Вимкнення подій миші */
+    pointer-events: none;
   }
 
   .nav-links.active {
     opacity: 1;
     transform: translateY(0) scale(1);
-    pointer-events: auto; /* Увімкнення подій миші тільки для активного меню */
+    pointer-events: auto;
   }
 
   .nav-links a {
@@ -365,14 +353,12 @@ a {
   }
 }
 
-/* === ГЕРОЙ === */
 .hero {
   padding: 15rem 0 10rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
 }
 
 .hero .container {
@@ -398,16 +384,18 @@ a {
   color: transparent;
 }
 
+.hero-subtitle, .hero-text, .section-header p {
+  color: var(--text-secondary);
+}
+
 .hero-subtitle {
   font: 400 clamp(1.8rem, 3vw, 2.4rem) system-ui;
-  color: var(--text-secondary);
   margin-bottom: 3rem;
 }
 
 .hero-text {
   font-size: clamp(1.6rem, 2.5vw, 1.8rem);
   margin-bottom: 4rem;
-  color: var(--text-secondary);
 }
 
 .hero-buttons {
@@ -507,7 +495,6 @@ a {
   animation: scroll 2s infinite;
 }
 
-/* === АНІМАЦІЇ === */
 @keyframes float {
   0% { transform: translate(0, 0) rotate(0deg); }
   100% { transform: translate(100px, 100px) rotate(360deg); }
@@ -529,7 +516,6 @@ a {
   100% { transform: translateY(15px); opacity: 0; }
 }
 
-/* === ПРО НАС === */
 .about {
   padding: 6rem 0;
 }
@@ -548,7 +534,6 @@ a {
 
 .about-text p {
   font-size: clamp(1.5rem, 2vw, 1.6rem);
-  color: var(--text-primary);
   margin-bottom: 1.6rem;
   line-height: 1.8;
 }
@@ -560,17 +545,20 @@ a {
   margin-top: 2rem;
 }
 
+.stat-item, .portfolio-stats .stat {
+  background: var(--glass-bg);
+  border-radius: 12px;
+  transition: var(--transition);
+  will-change: transform;
+}
+
 .stat-item {
   flex: 1;
   min-width: min(100%, 150px);
-  background: var(--glass-bg);
   border-left: 4px solid var(--primary);
-  border-radius: 12px;
   padding: 2rem;
   backdrop-filter: var(--blur-sm);
   box-shadow: var(--shadow);
-  transition: var(--transition);
-  will-change: transform;
 }
 
 .stat-item:hover {
@@ -587,7 +575,6 @@ a {
 
 .stat-text {
   font-size: 1.4rem;
-  color: var(--text-primary);
   opacity: 0.9;
 }
 
@@ -600,9 +587,7 @@ a {
 
 .about-image .glass-card {
   padding: 2rem;
-  backdrop-filter: var(--blur-md);
   transition: var(--transition);
-  will-change: transform;
 }
 
 .about-image .glass-card:hover {
@@ -623,7 +608,6 @@ a {
   position: relative;
 }
 
-/* === ПОРТФОЛІО === */
 .portfolio {
   padding: 6rem 0;
 }
@@ -636,7 +620,6 @@ a {
 
 .portfolio-item.glass-card {
   display: flex;
-  align-items: stretch;
   background: var(--card-bg);
   border-left: 4px solid var(--primary);
   border-radius: 12px;
@@ -645,7 +628,6 @@ a {
   transition: var(--transition);
   max-width: 900px;
   margin: 0 auto;
-  will-change: transform;
 }
 
 .portfolio-item.glass-card:hover {
@@ -656,8 +638,6 @@ a {
 
 .portfolio-image {
   flex: 1;
-  display: flex;
-  align-items: stretch;
 }
 
 .project-image {
@@ -683,7 +663,6 @@ a {
 
 .portfolio-content p {
   font-size: clamp(1.4rem, 2vw, 1.5rem);
-  color: var(--text-primary);
   margin-bottom: 1.2rem;
   line-height: 1.7;
 }
@@ -695,7 +674,6 @@ a {
 
 .portfolio-content ul li {
   font-size: clamp(1.4rem, 2vw, 1.5rem);
-  color: var(--text-primary);
   position: relative;
   padding-left: 2rem;
   margin-bottom: 0.8rem;
@@ -717,13 +695,9 @@ a {
 }
 
 .portfolio-stats .stat {
-  background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 8px;
   padding: 0.8rem 1.6rem;
   font-size: 1.4rem;
-  color: var(--text-primary);
-  transition: var(--transition);
 }
 
 .portfolio-stats .stat:hover {
@@ -733,15 +707,14 @@ a {
   box-shadow: 0 6px 15px rgba(166, 138, 100, 0.3);
 }
 
-/* Кнопка "Більше" для портфоліо */
-.portfolio-content .description-container {
+.description-container {
   max-height: 8rem;
   overflow: hidden;
   position: relative;
   transition: max-height 0.5s ease;
 }
 
-.portfolio-content .description-container::after {
+.description-container::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -762,7 +735,6 @@ a {
 .read-more {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  color: var(--text-primary);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -775,7 +747,6 @@ a {
   color: var(--text-secondary);
 }
 
-/* === ПОСЛУГИ === */
 .services {
   padding: 10rem 0;
 }
@@ -822,7 +793,6 @@ a {
   line-height: 1.8;
 }
 
-/* === ВІДГУКИ === */
 .testimonials {
   padding: 10rem 0;
 }
@@ -831,7 +801,6 @@ a {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
-  overflow: hidden;
 }
 
 .testimonial {
@@ -935,7 +904,6 @@ a {
   transform: scale(1.2);
 }
 
-/* === КОНТАКТИ === */
 #contact.contact-icons-only {
   padding: 3rem 0;
   text-align: center;
@@ -953,7 +921,6 @@ a {
 .contact-icons-only .icons-centered h2 {
   font: 600 2.2rem system-ui;
   margin-bottom: 2.5rem;
-  color: #ffffff;
   position: relative;
   padding-bottom: 15px;
 }
@@ -1027,7 +994,6 @@ a {
   transform: scale(1.15);
 }
 
-/* === ФУТЕР === */
 .footer {
   padding: 6rem 0 3rem;
   border-top: 1px solid var(--glass-border);
@@ -1077,7 +1043,6 @@ a {
   font-size: clamp(1.6rem, 2.5vw, 1.8rem);
   transition: var(--transition);
   border: 1px solid var(--glass-border);
-  will-change: transform;
 }
 
 .footer-social a:hover {
@@ -1094,7 +1059,6 @@ a {
   color: var(--text-secondary);
 }
 
-/* === ВЕРТИКАЛЬНА КАРУСЕЛЬ === */
 .vertical-carousel {
   text-align: center;
   padding: 2rem 1rem;
@@ -1107,7 +1071,6 @@ a {
 .vertical-carousel h2 {
    font: 600 6.4rem Verdana, Geneva, sans-serif;
   margin-bottom: 2.5rem;
-  color: #ffffff;
   position: relative;
   padding-bottom: 15px;
 }
@@ -1156,7 +1119,6 @@ a {
   z-index: 5;
 }
 
-/* === СЕРТИФІКАТИ === */
 .certificates-section {
     padding: 60px 20px;
     text-align: center;
@@ -1165,7 +1127,6 @@ a {
 .certificates-title {
     font: 3.6rem 'Franklin Gothic Medium', Arial, sans-serif;
     margin-bottom: 40px;
-    color: #ffffff;
 }
 
 .wrap_card {
@@ -1233,7 +1194,6 @@ a {
     color: #ccc;
 }
 
-/* === АДАПТИВНІСТЬ === */
 @media (max-width: 992px) {
   .hero .container {
     flex-direction: column;
@@ -1258,56 +1218,6 @@ a {
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    position: absolute;
-    top: calc(100% + 1rem);
-    right: 0;
-    width: 220px;
-    max-width: none;
-    background: rgba(30, 30, 32, 0.98);
-    backdrop-filter: var(--blur-lg);
-    border-radius: 12px;
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.35),
-      inset 0 2px 4px rgba(255, 255, 255, 0.15);
-    flex-direction: column;
-    padding: 1.2rem 0.8rem;
-    gap: 0.8rem;
-    text-align: right;
-    z-index: 1001;
-    opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-    transform-origin: top right;
-    transition: 
-      opacity 0.25s ease,
-      transform 0.25s ease;
-  }
-
-  .nav-links.active {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  .nav-links a {
-    font-size: 1.5rem;
-    padding: 0.7rem 1rem;
-    justify-content: flex-end;
-    display: flex;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  .nav-links a:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateX(-3px);
-  }
-
-  .burger {
-    display: block;
-  }
-
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
@@ -1349,10 +1259,6 @@ a {
 
   .hero {
     padding: 10rem 0 5rem;
-  }
-  
-  .hero-title {
-    font-size: clamp(2.5rem, 8vw, 3.5rem);
   }
   
   .portfolio-item.glass-card {
